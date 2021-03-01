@@ -5,6 +5,7 @@
 This is a super simple bot which managed your channel pins. When a channel reaches 50 pins it takes the oldest pin and reposts it in an archive channel with a jump link.
 
 To add an archive channel for a channel: `p!pins add <channel> <archive_channel>`
+
 To remove an archive channel for a channel: `p!pins del <channel>`
 
 That's all there is to it!
