@@ -42,11 +42,6 @@ async def on_guild_channel_pins_update(channel: TextChannel, last: datetime):
     if not last:
         return
 
-    delta = datetime.now() - last
-    if delta.seconds > 5:
-        print("Invalid time")
-        return
-
     c = await db.get_channel(channel.id)
     if not c:
         print("Channel not in db")
