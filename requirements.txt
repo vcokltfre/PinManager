@@ -1,2 +1,3 @@
 git+https://github.com/vcokltfre/template-bot-v2
 aiosqlite
+python-dotenv
