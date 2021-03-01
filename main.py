@@ -38,25 +38,31 @@ async def pins_del(ctx: commands.Context, channel: TextChannel):
 
 @bot.event
 async def on_guild_channel_pins_update(channel: TextChannel, last: datetime):
+    print("Pin update:", channel.id)
     if not last:
         return
 
     delta = datetime.now() - last
     if delta.seconds > 5:
+        print("Invalid time")
         return
 
     c = await db.get_channel(channel.id)
     if not c:
+        print("Channel not in db")
         return
 
     pins = await channel.pins()
     if len(pins) < 50:
+        print("Pins arent full")
         return
 
     ac = bot.get_channel(c[0])
     if not ac:
+        print("Archive channel is None")
         return
 
+    print("Reposting...")
     m = pins[-1]
     embed = Embed(title=f"#{channel} | Pins", colour=0x87CEEB)
     embed.description = m.content
@@ -64,5 +70,6 @@ async def on_guild_channel_pins_update(channel: TextChannel, last: datetime):
     embed.set_author(name=str(m.author), icon_url=str(m.author.avatar_url))
     await ac.send(embed=embed)
     await m.unpin()
+    print("Reposted.")
 
 bot.run(getenv("TOKEN"))
